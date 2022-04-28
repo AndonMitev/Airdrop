@@ -10,7 +10,8 @@ import { decryptJWT } from '../services'
 const Mint = ({ account }) => {
   const [params] = useSearchParams()
   const [tokenId, setTokenId] = useState()
-  const [status, setStatus] = useState()
+  const [url, setUrl] = useState()
+  const [step, setStep] = useState()
 
 
   useEffect(() => {
@@ -43,12 +44,14 @@ const Mint = ({ account }) => {
             signature
           })
 
+          setStep(1)
+          setUrl(`https://rinkeby.etherscan.io/tx/${tx.hash}`)
 
-          setStatus(`Tx Processing: ${tx.hash}`)
 
           await tx.wait()
 
-          setStatus(`View nft here: https://testnets.opensea.io/assets/${contractAddress}/${tokenId}`)
+          setStep(2)
+          setUrl(`https://testnets.opensea.io/assets/${contractAddress}/${tokenId}`)
         } catch (e) {
           console.log(e)
         }
@@ -60,7 +63,7 @@ const Mint = ({ account }) => {
   return (
     <>
       Mint tokenId: {tokenId}
-      <p>{status}</p>
+      {step === 1 ? <p onClick={() => window.open(url, "_blank")}>Check tx here: {url}</p> : step === 2 ? <p onClick={() => window.open(url, "_blank")}>View nft here: {url}</p> : <></>}
     </>
   )
 }
