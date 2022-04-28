@@ -10,6 +10,7 @@ import { decryptJWT } from '../services'
 const Mint = ({ account }) => {
   const [params] = useSearchParams()
   const [tokenId, setTokenId] = useState()
+  const [status, setStatus] = useState()
 
 
   useEffect(() => {
@@ -43,9 +44,11 @@ const Mint = ({ account }) => {
           })
 
 
-          console.log(tx)
+          setStatus(`Tx Processing: ${tx.hash}`)
 
           await tx.wait()
+
+          setStatus(`View nft here: https://testnets.opensea.io/assets/${contractAddress}/${tokenId}`)
         } catch (e) {
           console.log(e)
         }
@@ -55,7 +58,10 @@ const Mint = ({ account }) => {
   }, [account, params])
 
   return (
-    <>Mint tokenId: {tokenId}</>
+    <>
+      Mint tokenId: {tokenId}
+      <p>{status}</p>
+    </>
   )
 }
 
