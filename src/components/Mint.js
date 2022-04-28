@@ -51,7 +51,7 @@ const Mint = ({ account }) => {
 
       }
     })()
-  }, [account])
+  }, [account, params])
 
   return (
     <>Mint tokenId: {tokenId}</>
