@@ -33,6 +33,7 @@ const Mint = ({ account }) => {
 
         setTokenId(tokenId)
 
+
         try {
           const tx = await contract.mint(account, {
             tokenId,
