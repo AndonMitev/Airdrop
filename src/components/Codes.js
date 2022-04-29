@@ -21,9 +21,9 @@ const Codes = () => {
       <h2>QR Codes</h2>
       <div className='wrapper'>
         {codes.map(code =>
-          <div key={code.jwt} >
+          <div key={code.url} >
             <p>Scan here</p>
-            <QRCode value={code.jwt} />
+            <QRCode value={code.url} />
           </div>
         )}
       </div>
